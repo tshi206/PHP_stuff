@@ -8,11 +8,11 @@ include_once './DB_handler.php';
 
 $url = 'http://127.0.0.1/DB_demo/index.php?signup=success'; // this can be set based on whatever
 
-$first = $_POST['first'];
-$last = $_POST['last'];
-$email = $_POST['email'];
-$uid = $_POST['uid'];
-$pwd = $_POST['pwd']; // better hash it in the real world application
+$first = mysqli_real_escape_string($conn, $_POST['first']); // prevent users to inject SQL statement into our form
+$last = mysqli_real_escape_string($conn, $_POST['last']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$uid = mysqli_real_escape_string($conn, $_POST['uid']);
+$pwd = mysqli_real_escape_string($conn, $_POST['pwd']); // better hash the password in the real world application
 
 $sql3 = "INSERT INTO users (user_first, user_last, user_email, user_uid, user_pwd) VALUES (
 '$first', '$last', '$email', '$uid', '$pwd'
