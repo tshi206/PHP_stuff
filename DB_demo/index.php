@@ -9,6 +9,9 @@ include_once './includes/DB_handler.php';
     <title>DB demo</title>
 </head>
 <body>
+<?php
+include 'header.php';
+?>
 
 <?php
 // to connect to a DB just reference the mysqli object, like the following:

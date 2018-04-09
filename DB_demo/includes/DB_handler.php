@@ -19,6 +19,13 @@ $loginsystem_query = function (string $sqlStatement) use ($conn) : mysqli_result
     return mysqli_query($conn, $sqlStatement);
 };
 
+// sometimes mysqli_query() does not return a mysqli_result obj, i.e., after insertion.
+// this closure has unbound return type in order to cope with the potential return types of the following:
+// type::boolean, type::mysqli_result (again this is because PHP does not allow union type)
+$loginsystem_query_unchecked_return_type = function (string $sqlStatement) use ($conn) {
+    return mysqli_query($conn, $sqlStatement);
+};
+
 /*
  * overloaded fetches implementation.
  * featuring:
