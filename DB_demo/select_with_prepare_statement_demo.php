@@ -23,7 +23,6 @@ include 'header.php'
  * In fact, the parameters in the prepared statements are sent via different protocols and only treated as plain
  * characters, hence SQL injection is prevented.
  */
-
 $var1 = 'Bruce';
 $var2 = 14;
 
@@ -48,7 +47,8 @@ if (!mysqli_stmt_prepare($stmt, $sql1)){
     mysqli_stmt_execute($stmt);
 
     // get the results back
-    $result = mysqli_stmt_get_result($stmt); // note that the return types can be either boolean or type::mysqli_result
+    // note that the return types can be either boolean::FALSE upon SELECT Error or type::mysqli_result
+    $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)){
         echo '<h2>';
         foreach ($row as $key => $value){

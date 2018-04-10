@@ -17,7 +17,8 @@ $pwd = mysqli_real_escape_string($conn, $_POST['pwd']); // better hash the passw
 $sql3 = "INSERT INTO users (user_first, user_last, user_email, user_uid, user_pwd) VALUES (
 '$first', '$last', '$email', '$uid', '$pwd'
 );";
-$result3 = $loginsystem_query_unchecked_return_type($sql3); // note that $result is of type::boolean
+$result3 = $loginsystem_query_unchecked_return_type($sql3); // note that $result3 is of type::boolean,
+// see docs for mysqli_query(), basically things like SELECT return an object on success, others return booleans
 if ($result3 == true){ // note that mysqli_query for INSERTION returns a boolean instead of a mysqli_result obj
     // insert successfully
     echo '<h2>'."done with the insertion".'</h2>';
