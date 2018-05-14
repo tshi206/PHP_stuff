@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+include_once "dbh.php";
+$id = $_SESSION['id'];
+
 if (isset($_POST['submit'])) {
     $file = $_FILES['file'];
     print_r($file);
@@ -16,10 +21,13 @@ if (isset($_POST['submit'])) {
     if (in_array($fileExt, $allowedExt)) {
         if ($fileError === 0) {
             if ($fileSize < 1000000) { // file size in Bytes
-                $fileNameNew = uniqid('file', true); // unique id based on current time in microsecond
+                //$fileNameNew = uniqid('file', true); // unique id based on current time in microsecond
+                $fileNameNew = "profile_".$id;
                 $fileNameNew = $fileNameNew.".".$fileExt;
                 $fileDestination = './uploads/'.$fileNameNew;
                 move_uploaded_file($fileTmpName, $fileDestination);
+                $sql = "update profileimg set status=0 WHERE userid = '$id';";
+                $result = mysqli_query($conn, $sql);
                 header("Location: index.php?upload=success");
             } else {
                 echo 'Your file is too big!';
