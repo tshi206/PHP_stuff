@@ -24,7 +24,10 @@ if (mysqli_num_rows($result) > 0) {
         while ($rowImg = mysqli_fetch_assoc($resultImg)) {
             echo "<div class='user-container'>";
             if ($rowImg['status'] == 0) {
-                echo "<img src='uploads/profile_".$id.".png?".mt_rand()."'>"; // mt_rand() make some random number to stop the browser caching the old image by changing the file name
+                // mt_rand() make some random number to stop the browser caching the old image by changing the file name
+                $filebasename = glob("uploads/profile_" . $id . ".*")[0];
+                $imgSource = $filebasename.'?'.mt_rand();
+                echo "<img src=$imgSource>";
             } else {
                 echo "<img src='uploads/profile_default.png'>";
             }
@@ -44,6 +47,10 @@ if (isset($_SESSION['id'])) {
             <form action=\"upload.php\" method=\"post\" enctype=\"multipart/form-data\">
                 <input type=\"file\" name=\"file\">
                 <button type=\"submit\" name=\"submit\">Upload</button>
+            </form>";
+    echo "<!-- delete profile img and restore the default img -->
+            <form action=\"delete_profile_img.php\" method=\"post\">
+                <button type=\"submit\" name=\"submit\">Delete profile image</button>
             </form>";
 } else {
     echo 'You are not logged in';
